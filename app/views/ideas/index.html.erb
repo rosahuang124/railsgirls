@@ -1,31 +1,66 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Ideas</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Picture</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @ideas.each do |idea| %>
-      <tr>
-        <td><%= idea.name %></td>
-        <td><%= idea.description %></td>
-        <td><%= image_tag idea.picture_url(:thumb) if idea.picture? %></td>
-        <td><%= link_to 'Show', idea %></td>
-        <td><%= link_to 'Edit', edit_idea_path(idea) %></td>
-        <td><%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="demo-blog__posts mdl-grid">
+  <div class="mdl-card coffee-pic mdl-cell mdl-cell--8-col">
+    <div class="mdl-card__media mdl-color-text--grey-50" style="background-image:url(<%=@ideas.first.picture_url if @ideas.first.picture? %>)">
+      <h3><%= link_to @ideas.first.name, @ideas.first %></h3>
+    </div>
+    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
+      <div class="minilogo"></div>
+      <div>
+        <strong>The Newist</strong>
+        <span>2 days ago</span>
+      </div>
+    </div>
+  </div>
+  <div class="mdl-card something-else mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop">
+    <%= link_to new_idea_path, class: "mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent add-button" do %>
+    <i class="material-icons mdl-color-text--white" role="presentation">add</i>
+    <span class="visuallyhidden">add</span>
     <% end %>
-  </tbody>
-</table>
+    <div class="mdl-card__media mdl-color--white mdl-color-text--grey-600">
+      <% if user_signed_in? %>
+        <%= image_tag current_user.gravatar_url %>
+      <% else %>
+        <%= image_tag "logo.png" %>
+      <% end %>
+      +1,337
+    </div>
+    <div class="mdl-card__supporting-text meta meta--fill mdl-color-text--grey-600">
+      <div>
+        <strong>The Newist</strong>
+      </div>
+      <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="menubtn">
+        <li class="mdl-menu__item"><%= link_to "About", pages_info_path %></li>
+        <li class="mdl-menu__item"><%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %></li>
+        <li class="mdl-menu__item"><%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %></li>
+        <li class="mdl-menu__item"><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+      </ul>
 
-<br>
+      <button id="menubtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">more_vert</i>
+        <span class="visuallyhidden">show menu</span>
+      </button>
+    </div>
+  </div>
 
-<%= link_to 'New Idea', new_idea_path %>
+
+<% @ideas.offset(1).each do |idea| %>
+<div class="mdl-card on-the-road-again mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__media mdl-color-text--grey-50" style="background-image:url(<%=idea.picture_url if idea.picture? %>)">
+    <h3><%= link_to idea.name, idea %></h3>
+  </div>
+  <div class="mdl-color-text--grey-600 mdl-card__supporting-text">
+    <%= idea.description %>
+  </div>
+  <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
+    <div class="minilogo"></div>
+    <div>
+      <strong>The Newist</strong>
+      <span>2 days ago</span>
+    </div>
+  </div>
+</div>
+
+<% end %>
+
+
+</div>

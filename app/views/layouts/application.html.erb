@@ -2,62 +2,67 @@
 <html>
 <head>
   <title>Railsgirls</title>
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-  <nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">The Idea app</a>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link</a></li>
-      </ul>
-        <p class="navbar-text pull-right">
-<% if user_signed_in? %>
-  Logged in as <strong><%= current_user.email %></strong>.
-  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-  <span class="user-gravatar"><%= image_tag current_user.gravatar_url %></span>
-<% else %>
-  <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-  <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-<% end %>
-</p>
+     <div class="demo-blog <%= "demo-blog--blogpost" if params[:action] != "index" %> mdl-layout mdl-js-layout has-drawer is-upgraded">
+       <main class="mdl-layout__content">
+
+  <%= yield %>
 
 
-    </div>
-  </div>
-</nav>
+         <footer class="mdl-mini-footer">
+           <div class="mdl-mini-footer--left-section">
+             <button class="mdl-mini-footer--social-btn social-btn social-btn__twitter">
+               <span class="visuallyhidden">Twitter</span>
+             </button>
+             <button class="mdl-mini-footer--social-btn social-btn social-btn__blogger">
+               <span class="visuallyhidden">Facebook</span>
+             </button>
+             <button class="mdl-mini-footer--social-btn social-btn social-btn__gplus">
+               <span class="visuallyhidden">Google Plus</span>
+             </button>
+           </div>
+           <div class="mdl-mini-footer--right-section">
+             <button class="mdl-mini-footer--social-btn social-btn__share">
+               <i class="material-icons" role="presentation">share</i>
+               <span class="visuallyhidden">share</span>
+             </button>
+           </div>
+         </footer>
+       </main>
+       <div class="mdl-layout__obfuscator"></div>
+     </div>
 
-  <div class="container">
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
-    <%= yield %>
-  </div>
+   <script>
+     Array.prototype.forEach.call(document.querySelectorAll('.mdl-card__media'), function(el) {
+       var link = el.querySelector('a');
+       if(!link) {
+         return;
+       }
+       var target = link.getAttribute('href');
+       if(!target) {
+         return;
+       }
+       el.addEventListener('click', function() {
+         location.href = target;
+       });
+     });
+   </script>
 
-  <footer>
-    <div class="container">
-      Rails Girls Taipei 2015
-    </div>
-  </footer>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+
+
+
+
 
 </body>
 </html>

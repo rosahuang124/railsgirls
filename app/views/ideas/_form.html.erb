@@ -1,29 +1,53 @@
 <%= form_for(@idea) do |f| %>
-  <% if @idea.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@idea.errors.count, "error") %> prohibited this idea from being saved:</h2>
+        <div class="demo-back">
+          <%= link_to ideas_path, class: "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon", rold: "button" do %>
+              <i class="material-icons" role="presentation">arrow_back</i>
+          <% end %>
+        </div>
+        <div class="demo-blog__posts mdl-grid">
+          <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+            <div class="mdl-card__media mdl-color-text--grey-50" style="background-image:url(<%=@idea.picture_url if @idea.picture? %>)">
+              <div class="mdl-textfield mdl-js-textfield">
+                <%= f.label :name, class: "mdl-textfield__label", for: "name" %><br>
+                <%= f.text_field :name, class: "mdl-textfield__input", id: "name" %>
 
-      <ul>
-      <% @idea.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+                </div>
+            </div>
+            <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+              <div class="minilogo"></div>
+              <div>
+                <strong>The Newist</strong>
+                <span>2 days ago</span>
+              </div>
+              <div class="section-spacer"></div>
+              <div class="meta__favorites">
+                425 <i class="material-icons" role="presentation">favorite</i>
+                <span class="visuallyhidden">favorites</span>
+              </div>
+              <div>
+                <i class="material-icons" role="presentation">bookmark</i>
+                <span class="visuallyhidden">bookmark</span>
+              </div>
+              <div>
+                <i class="material-icons" role="presentation">share</i>
+                <span class="visuallyhidden">share</span>
+              </div>
+            </div>
+            <div class="mdl-color-text--grey-700 mdl-card__supporting-text" style="display: block">
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :picture %><br>
-    <%= f.file_field :picture %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+              <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+              <%= f.label :description, class: "mdl-textfield__label", for: "description" %>
+              <%= f.text_area :description, class: "mdl-textfield__input", rows: 15, width: "100%", id: "description" %>
+              </div>
+
+              <div class="field">
+
+              <%= f.file_field :picture %>
+              </div>
+              <div>
+                <%= f.button "Submit", type: :submit, class: "mdl-button mdl-js-button mdl-js-ripple-effect " %>
+              </div>
+            </div>
+          </div>
+        </div>
 <% end %>

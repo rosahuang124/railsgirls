@@ -1,29 +1,78 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @idea.name %>
-</p>
+        <div class="demo-back">
+          <%= link_to ideas_path, class: "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon", rold: "button" do %>
+              <i class="material-icons" role="presentation">arrow_back</i>
+          <% end %>
+        </div>
+        <div class="demo-blog__posts mdl-grid">
+          <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+            <div class="mdl-card__media mdl-color-text--grey-50" style="background-image:url(<%=@idea.picture_url if @idea.picture? %>)">
+              <h3><%= @idea.name %></h3>
+            </div>
+            <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+              <div class="minilogo"></div>
+              <div>
+                <strong>The Newist</strong>
+                <span>2 days ago</span>
+              </div>
+              <div class="section-spacer"></div>
+              
+              <div>
+                <%= link_to edit_idea_path(@idea) do %>
+                <i class="material-icons" role="presentation">edit</i>
+                <span class="visuallyhidden">share</span>
+                <% end %>
+              </div>
+            </div>
+            <div class="mdl-color-text--grey-700 mdl-card__supporting-text">
+                <%= @idea.description %>
+            </div>
+            <div class="mdl-color-text--primary-contrast mdl-card__supporting-text comments">
+              <%= render 'comments/form' %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @idea.description %>
-</p>
+              <% @comments.each do |comment| %>
+              <div class="comment mdl-color-text--grey-700">
+                <header class="comment__header">
 
-<p>
-  <strong>Picture:</strong>
-  <%= image_tag(@idea.picture_url, width: 600) if @idea.picture.present? %>
-</p>
+                  <%= image_tag "co1.jpg", class: "comment__avatar" %>
 
-<h3>Comments</h3>
-<% @comments.each do |comment| %>
-  <div>
-    <strong><%= comment.user_name %></strong>
-    <br />
-    <p><%= comment.body %></p>
-  </div>
-<% end %>
-<%= render 'comments/form' %>
+                  <div class="comment__author">
+                    <strong><%= comment.user_name %></strong>
+                    <span>2 days ago</span>
+                  </div>
+                </header>
+                <div class="comment__text">
+                  <%= comment.body %>
+                </div>
+                <nav class="comment__actions">
+                  <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                    <i class="material-icons" role="presentation">thumb_up</i><span class="visuallyhidden">like comment</span>
+                  </button>
+                  <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                    <i class="material-icons" role="presentation">thumb_down</i><span class="visuallyhidden">dislike comment</span>
+                  </button>
+                  <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                    <i class="material-icons" role="presentation">share</i><span class="visuallyhidden">share comment</span>
+                  </button>
+                </nav>
+              </div>
+              <% end %>
+            </div>
+          </div>
 
-<%= link_to 'Edit', edit_idea_path(@idea) %> |
-<%= link_to 'Back', ideas_path %>
+          <nav class="demo-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+            <a href="index.html" class="demo-nav__button">
+              <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+              </button>
+              Newer
+            </a>
+            <div class="section-spacer"></div>
+            <a href="index.html" class="demo-nav__button">
+              Older
+              <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+              </button>
+            </a>
+          </nav>
+        </div>

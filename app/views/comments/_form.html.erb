@@ -1,27 +1,13 @@
 <%= form_for(@comment) do |f| %>
   <%= f.hidden_field :idea_id %>
-  <% if @comment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+  <%= f.hidden_field :user_name, value: "Guest" %>
 
-      <ul>
-      <% @comment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.text_area :body, class: "mdl-textfield__input", id: "comment" %>
+    <label for="comment" class="mdl-textfield__label">Join the discussion</label>
+  </div>
+
+  <%= f.button type: :submit, class: "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" do %>
+    <i class="material-icons" role="presentation">check</i><span class="visuallyhidden">add comment</span>
   <% end %>
-
-  <div class="field">
-    <%= f.label :user_name %><br>
-    <%= f.text_field :user_name %>
-  </div>
-  <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_area :body %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
